@@ -1,2 +1,2 @@
-# angular-simple
-A simple AngularJs project.
+# angular-sample
+A sample AngularJs project.
