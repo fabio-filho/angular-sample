@@ -1,2 +1,3 @@
-
-var myModule = angular.module('myAngularApplication', []);
+(function(){
+    let myModule = angular.module('myAngularApplication', []);
+}())
