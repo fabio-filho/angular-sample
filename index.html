@@ -18,19 +18,32 @@
 </head>
 
 
-<body ng-controller="booksController as controller">
+<body ng-controller="booksController as controller" ng-init="subtitle='This is my table of books:'">
 
-
+        <h3 ng-bind="controller.title"></h3>
 
         <div class="panel panel-default">
+
+                <div class="panel-heading">
+                        <h5 ng-bind="subtitle"></h5>
+                </div>
+
                 <div class="panel-body">
-                        
-                        <h1 ng-bind="controller.message"></h1>
-                        <br>
-                        <br>
+
+                        <select ng-model="country" ng-options="country for country in countries"></select>
+                        <br><br>
+
+                        <h5 ng-bind="country"></h5>
+
+                        <br><br>
+
                         <a class="btn btn-default" ng-click="fetchBooks();">Fetch Books</a>
-                        <br>
-                        <table class="table table-striped">
+                        <br><br>
+
+                        <p ng-hide="books.length > 0"  
+                                ng-style='{getClass(1): books.length <= 0}'>No books availables.</p>
+
+                        <table class="table table-striped" ng-hide="books.length<=0">
                                 <thead>
                                         <tr>
                                                 <th>ID</th>
