@@ -43,7 +43,7 @@
                                 </tr>
                         </thead>
                         <tbody>
-                                <tr ng-repeat="book in books | orderBy: orderField | startFrom: currentIndex | limitTo: limitRowsPerPage">
+                                <tr ng-repeat="book in books | orderBy: orderField |  limitTo: limitRowsPerPage : currentIndex ">
                                         <td ng-bind="book.ID"></td>
                                         <td ng-bind="book.BookName"></td>
                                         <td ng-bind="book.AuthorName"></td>
