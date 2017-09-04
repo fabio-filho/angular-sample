@@ -1,3 +1,3 @@
 (function(){
-    let myModule = angular.module('myAngularApplication', []);
+    const myModule = angular.module('myAngularApplication', []);
 }())
