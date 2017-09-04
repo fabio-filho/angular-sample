@@ -21,9 +21,11 @@
 <body ng-controller="booksController as controller" ng-init="subtitle='This is my table of books:'">
         <div class="container">
 
-                <h3 ng-bind="controller.title"></h3>
+                <h3 ng-bind="controller.title"></h3> 
                 <h5 ng-bind="subtitle"></h5>
 
+                <br>
+                Using custom filter: 2^5 =  {{2 | power: 5 }}
                 <br><br>
 
                 <a class="btn btn-default" ng-click="fetchBooks();">Fetch Books</a>
@@ -31,38 +33,38 @@
 
                 <p ng-hide="books.length > 0" ng-style='getStyle(1)' ng-class="{'alert alert-warning':books.length<=0}">No books availables.</p>
 
-                <select ng-model="orderField" ng-options="orderField for orderField in fields" ng-hide="books.length<=0"></select>
-
-                <table class="table table-striped" ng-hide="books.length<=0">
-                        <thead>
-                                <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Author Name</th>
-                                        <th>Date Released</th>
-                                </tr>
-                        </thead>
-                        <tbody>
-                                <tr ng-repeat="book in books | orderBy: orderField |  limitTo: limitRowsPerPage : currentIndex ">
-                                        <td ng-bind="book.ID"></td>
-                                        <td ng-bind="book.BookName"></td>
-                                        <td ng-bind="book.AuthorName"></td>
-                                        <td>{{book.DateReleased | date: 'mediumDate'}}</td>
-                                </tr>
-                        </tbody>
-                </table>
-
                 <div ng-hide="books.length<=0">
-                        <input class="btn btn-default mx-auto" type="button" ng-hide="currentIndex<=0" ng-click="previousPage()" value="Previous"
-                                ng-hide="books.length<=0" />
-                        <input class="btn btn-default mx-auto" type="button" ng-hide="isLimitOfPage()" ng-click="nextPage()" value="Next" ng-hide="books.length<=0"
-                        />
-                        <br><br>
-                        <spam class="badge badge-primary" ng-hide="books.length<=0">
-                                Total: {{books.length | number}}
-                        </spam>
-                </div>
 
+                        <select ng-model="orderField" ng-options="orderField for orderField in fields"></select> Descending
+                        <input ng-model="isDescending" type="checkbox" />
+
+                        <table class="table table-striped">
+                                <thead>
+                                        <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Author Name</th>
+                                                <th>Date Released</th>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                        <tr ng-repeat="book in books | orderBy: (isDescending?'-':'')+orderField |  limitTo: limitRowsPerPage : currentIndex ">
+                                                <td ng-bind="book.ID"></td>
+                                                <td ng-bind="book.BookName"></td>
+                                                <td ng-bind="book.AuthorName"></td>
+                                                <td>{{book.DateReleased | date: 'mediumDate'}}</td>
+                                        </tr>
+                                </tbody>
+                        </table>
+
+                        <input class="btn btn-default mx-auto" type="button" ng-hide="currentIndex<=0" ng-click="previousPage()" value="Previous"
+                        />
+                        <input class="btn btn-default mx-auto" type="button" ng-hide="isLimitOfPage()" ng-click="nextPage()" value="Next" />
+                        <br><br>
+                        <spam class="badge badge-primary">
+                                Total: {{books.length | number}}
+                        </spam>                                                
+                </div>                
         </div>
 
         <!-- Optional JavaScript -->

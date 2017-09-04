@@ -8,6 +8,7 @@
         $scope.limitRowsPerPage = 5;
         $scope.fields = ['ID', 'BookName', 'AuthorName', 'DateReleased'];
         $scope.orderField = $scope.fields[0];
+        $scope.isDescending = false;
 
         $scope.fetchBooks = function () {
             $scope.books = [
@@ -55,10 +56,24 @@
         }
 
         $scope.isLimitOfPage = function () {
-            return ($scope.currentIndex+$scope.limitRowsPerPage) / $scope.limitRowsPerPage
+            return ($scope.currentIndex + $scope.limitRowsPerPage) / $scope.limitRowsPerPage
                 == Math.ceil($scope.books.length / $scope.limitRowsPerPage);
         }
     }
     angular.module('myAngularApplication')
         .controller('booksController', ['$scope', booksController]);
+
+    angular.module('myAngularApplication').filter('power', function () {
+
+        return function (input, powerValue) {
+
+            // Check if power value is falsy
+            if (!powerValue) {
+                powerValue = 1;
+            }
+
+            // Use Math.pow to find the power and return it
+            return Math.pow(input, powerValue);
+        }
+    });
 }())
