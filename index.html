@@ -19,49 +19,52 @@
 
 
 <body ng-controller="booksController as controller" ng-init="subtitle='This is my table of books:'">
+        <div class="container">
+                
+                <h3 ng-bind="controller.title"></h3>
+                <h5 ng-bind="subtitle"></h5>
 
-        <h3 ng-bind="controller.title"></h3>
+                <select ng-model="country" ng-options="country for country in countries"></select>
+                <br><br>
 
-        <div class="panel panel-default">
+                <h5 ng-bind="country"></h5>
 
-                <div class="panel-heading">
-                        <h5 ng-bind="subtitle"></h5>
-                </div>
+                <br><br>
 
-                <div class="panel-body">
+                <a class="btn btn-default" ng-click="fetchBooks();">Fetch Books</a>
+                <br><br>
 
-                        <select ng-model="country" ng-options="country for country in countries"></select>
-                        <br><br>
+                <p ng-hide="books.length > 0" ng-style='getStyle(1)' ng-class="{'alert alert-warning':books.length<=0}">No books availables.</p>
 
-                        <h5 ng-bind="country"></h5>
+                <table class="table table-striped" ng-hide="books.length<=0">
+                        <thead>
+                                <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Author Name</th>
+                                        <th>Date Released</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr ng-repeat="book in books | limitTo: amountBooksVisible">
+                                        <td ng-bind="book.ID"></td>
+                                        <td ng-bind="book.BookName"></td>
+                                        <td ng-bind="book.AuthorName"></td>
+                                        <td>{{book.DateReleased | date: 'mediumDate'}}</td>
+                                </tr>
+                        </tbody>
+                </table>
 
-                        <br><br>
-
-                        <a class="btn btn-default" ng-click="fetchBooks();">Fetch Books</a>
-                        <br><br>
-
-                        <p ng-hide="books.length > 0"  
-                                ng-style='{getClass(1): books.length <= 0}'>No books availables.</p>
-
-                        <table class="table table-striped" ng-hide="books.length<=0">
-                                <thead>
-                                        <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Author Name</th>
-                                        </tr>
-                                </thead>
-                                <tbody>
-                                        <tr ng-repeat="book in books">
-                                                <td ng-bind="book.ID"></td>
-                                                <td ng-bind="book.BookName"></td>
-                                                <td ng-bind="book.AuthorName"></td>
-                                        </tr>
-                                </tbody>
-                        </table>
-                </div>
+                <div class="col-md-4 text-center"> 
+                <input class="btn btn-default mx-auto" style="center" type="button" ng-click="amountBooksVisible = amountBooksVisible + limitRowsPerPage"
+                        value="More" ng-hide="books.length<=0" />
+                                </div>
+                <br>
+                <spam class="badge badge-primary" ng-hide="books.length<=0">
+                        Total: {{books.length | number}}
+                </spam>
         </div>
-
+        
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="lib/jquery-3.1.1.min.js"></script>
