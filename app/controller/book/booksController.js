@@ -4,6 +4,8 @@
         this.title = "Books";
 
         $scope.books = [];
+        $scope.book = {};
+        $scope.editBook = null;
         $scope.currentIndex = 0;
         $scope.limitRowsPerPage = 5;
         $scope.fields = ['ID', 'BookName', 'AuthorName', 'DateReleased'];
@@ -14,15 +16,27 @@
             $scope.books = localBooksService.books;
         }
 
-        $scope.country = null;
+        $scope.addBook = function () {
+            localBooksService.addBook($scope.book);
+            $scope.fetchBooks();
+            $scope.book = {}
+        }
 
-        $scope.countries = [
-            "India",
-            "Denmark",
-            "USA",
-            "Singapore",
-            "Germany"
-        ];
+        $scope.updateBook = function () {
+            localBooksService.updateBook($scope.editBook);
+            $scope.editBook = null;
+            $scope.fetchBooks();
+        }
+
+        $scope.setEditBook = function (selected) {                        
+            $scope.editBook = angular.copy(selected);
+            $scope.book = {}
+        }
+
+        $scope.cancelEdit = function () {
+            $scope.editBook = null;
+            $scope.book = {}
+        }
 
         $scope.getStyle = function (index) {
             if (index == 1)
@@ -45,9 +59,11 @@
             return ($scope.currentIndex + $scope.limitRowsPerPage) / $scope.limitRowsPerPage
                 == Math.ceil($scope.books.length / $scope.limitRowsPerPage);
         }
+
+        $scope.fetchBooks();
     }
     angular.module('myAngularApplication')
-        .controller('booksController',  ['$scope', 'localBooksService', booksController]);
+        .controller('booksController', ['$scope', 'localBooksService', booksController]);
 
     angular.module('myAngularApplication').filter('power', function () {
 

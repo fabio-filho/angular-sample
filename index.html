@@ -29,9 +29,38 @@
                 <br> Using custom filter: 2^5 = {{2 | power: 5 }}
                 <br><br>
 
-                <a class="btn btn-default" ng-click="fetchBooks();">Fetch Books</a>
-                <br><br>
+                <form class="form-inline" ng-submit="addBook()" ng-hide="editBook!=null">
 
+                        <input type="text" ng-model="book.BookName" placeholder="Book's Name" />
+                        <br><br>
+                        <input type="text" ng-model="book.AuthorName" placeholder="Author's Name" />
+                        <br><br>
+                        <input type="text" ng-model="book.ISBN" placeholder="ISBN" />
+                        <br><br>
+                        <input type="hidden" ng-model="book.DateReleased" placeholder="Date Released" value="1118323623006" />
+                        <br><br>
+                        <input type="submit" class="btn btn-success" placeholder="ISBN" value="Create" />
+
+                </form>
+
+                <form class="form-inline" ng-hide="editBook==null">
+
+                        <input type="hidden" ng-model="editBook.ID" placeholder="Book's Name" />
+                        <br><br>
+                        <input type="text" ng-model="editBook.BookName" placeholder="Book's Name" />
+                        <br><br>
+                        <input type="text" ng-model="editBook.AuthorName" placeholder="Author's Name" />
+                        <br><br>
+                        <input type="text" ng-model="editBook.ISBN" placeholder="ISBN" />
+                        <br><br>
+                        <input type="hidden" ng-model="editBook.DateReleased" placeholder="Date Released" value="1118323623006" />
+                        <br><br>
+                        <input type="submit" class="btn btn-success" placeholder="ISBN" value="Update" ng-click="updateBook();" />                        
+                        <input type="button" class="btn btn-info" placeholder="ISBN" value="Cancel" ng-click="cancelEdit();" />
+
+                </form>
+
+                <br><br>
                 <p ng-hide="books.length > 0" ng-style='getStyle(1)' ng-class="{'alert alert-warning':books.length<=0}">No books availables.</p>
 
                 <div ng-hide="books.length<=0">
@@ -46,6 +75,7 @@
                                                 <th>Name</th>
                                                 <th>Author Name</th>
                                                 <th>Date Released</th>
+                                                <th></th>
                                         </tr>
                                 </thead>
                                 <tbody>
@@ -54,6 +84,8 @@
                                                 <td ng-bind="book.BookName"></td>
                                                 <td ng-bind="book.AuthorName"></td>
                                                 <td>{{book.DateReleased | date: 'mediumDate'}}</td>
+                                                <td> <input type="button" class="btn btn-info" value="Edit" ng-click="setEditBook(book);"
+                                                        /></td>
                                         </tr>
                                 </tbody>
                         </table>
@@ -67,7 +99,7 @@
                         </spam>
                 </div>
         </div>
-
+        <br><br>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="lib/jquery-3.1.1.min.js"></script>
