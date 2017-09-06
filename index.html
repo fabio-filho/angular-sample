@@ -13,7 +13,9 @@
         </script>
         <script src="app/application/app.js" type="text/JavaScript">
         </script>
-        <script src="app/services/book/bookServices.js" type="text/JavaScript">
+        <script src="app/services/book/localBooksService.js" type="text/JavaScript">
+        </script>
+        <script src="app/services/book/remoteBooksService.js" type="text/JavaScript">
         </script>
         <script src="app/controller/book/booksController.js" type="text/JavaScript">
         </script>
@@ -29,7 +31,8 @@
                 <br> Using custom filter: 2^5 = {{2 | power: 5 }}
                 <br><br>
 
-                <a class="btn btn-default" ng-click="fetchBooks();">Fetch Books</a>
+                <a class="btn btn-default mx-auto" ng-click="fetchBooks();">Fetch Books</a>
+                <a class="btn btn-default mx-auto" ng-click="fetchBooksFromServer();">Fetch Books From Server</a>
                 <br><br>
 
                 <p ng-hide="books.length > 0" ng-style='getStyle(1)' ng-class="{'alert alert-warning':books.length<=0}">No books availables.</p>

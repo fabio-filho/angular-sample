@@ -1,6 +1,6 @@
 (function () {
 
-    let booksController = function ($scope, $filter, localBookService) {
+    let booksController = function ($scope, $filter, localBooksService, remoteBooksService, $http) {
         this.title = "Books";
 
         $scope.books = [];
@@ -10,8 +10,19 @@
         $scope.orderField = $scope.fields[0];
         $scope.isDescending = false;
 
-        $scope.fetchBooks = function () {
-            $scope.books = localBookService.books;
+        $scope.fetchBooks = function () {            
+            $scope.books = localBooksService.books;
+        }
+
+        $scope.fetchBooksFromServer = function () {             
+            remoteBooksService.fetchBooks()
+                .success(function (data, status, headers, config) {
+                    $scope.books = data;                    
+                    $scope.error = "Not found any error!";
+                })
+                .error(function (data, status, headers, config) {
+                    $scope.error = "Failed to retrieved items from server";
+                });
         }
 
         $scope.country = null;
@@ -47,7 +58,7 @@
         }
     }
     angular.module('myAngularApplication')
-        .controller('booksController', ['$scope', '$filter', 'localBookService', booksController]);
+        .controller('booksController', ['$scope', '$filter', 'localBooksService', 'remoteBooksService', booksController]);
 
     angular.module('myAngularApplication').filter('power', function () {
 

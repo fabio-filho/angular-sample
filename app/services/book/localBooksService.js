@@ -1,6 +1,6 @@
 (function () {
 
-    const localBookService = function () {
+    const localBooksService = function () {
 
         let  _books = [
                 { ID: 1, BookName: "Test Books 1", AuthorName: "Test Author 1", ISBN: "TEST1", DateReleased: 786585600000 },
@@ -23,5 +23,5 @@
         };
     };
 
-    angular.module("myAngularApplication").factory('localBookService', [localBookService]);
+    angular.module("myAngularApplication").factory('localBooksService', [localBooksService]);
 })()
