@@ -13,6 +13,8 @@
         </script>
         <script src="app/application/app.js" type="text/JavaScript">
         </script>
+        <script src="app/services/book/localBooksService.js" type="text/JavaScript">
+        </script>
         <script src="app/controller/book/booksController.js" type="text/JavaScript">
         </script>
 </head>
@@ -21,11 +23,10 @@
 <body ng-controller="booksController as controller" ng-init="subtitle='This is my table of books:'">
         <div class="container">
 
-                <h3 ng-bind="controller.title"></h3> 
+                <h3 ng-bind="controller.title"></h3>
                 <h5 ng-bind="subtitle"></h5>
 
-                <br>
-                Using custom filter: 2^5 =  {{2 | power: 5 }}
+                <br> Using custom filter: 2^5 = {{2 | power: 5 }}
                 <br><br>
 
                 <a class="btn btn-default" ng-click="fetchBooks();">Fetch Books</a>
@@ -63,8 +64,8 @@
                         <br><br>
                         <spam class="badge badge-primary">
                                 Total: {{books.length | number}}
-                        </spam>                                                
-                </div>                
+                        </spam>
+                </div>
         </div>
 
         <!-- Optional JavaScript -->
