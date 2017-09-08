@@ -16,19 +16,27 @@
             $scope.books = localBooksService.books;
         }
 
-        $scope.addBook = function () {
-            localBooksService.addBook($scope.book);
-            $scope.fetchBooks();
-            $scope.book = {}
+        $scope.addBook = function (form) {            
+            if (form.$valid) {
+                localBooksService.addBook($scope.book);
+                $scope.fetchBooks();
+                $scope.book = {}
+            } else {
+                alert("Erros in form, please check it out!");
+            }
         }
 
-        $scope.updateBook = function () {
-            localBooksService.updateBook($scope.editBook);
-            $scope.editBook = null;
-            $scope.fetchBooks();
+        $scope.updateBook = function (form) {
+            if (form.$valid) {
+                localBooksService.updateBook($scope.editBook);
+                $scope.editBook = null;
+                $scope.fetchBooks();
+            } else {
+                alert("Erros in form, please check it out!");
+            }
         }
 
-        $scope.setEditBook = function (selected) {                        
+        $scope.setEditBook = function (selected) {
             $scope.editBook = angular.copy(selected);
             $scope.book = {}
         }
@@ -69,12 +77,9 @@
 
         return function (input, powerValue) {
 
-            // Check if power value is falsy
             if (!powerValue) {
                 powerValue = 1;
             }
-
-            // Use Math.pow to find the power and return it
             return Math.pow(input, powerValue);
         }
     });

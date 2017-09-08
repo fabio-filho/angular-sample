@@ -17,6 +17,8 @@
         </script>
         <script src="app/controller/book/booksController.js" type="text/JavaScript">
         </script>
+        <link rel="stylesheet" href="app/application/app.css">
+
 </head>
 
 
@@ -29,39 +31,45 @@
                 <br> Using custom filter: 2^5 = {{2 | power: 5 }}
                 <br><br>
 
-                <form class="form-inline" ng-submit="addBook()" ng-hide="editBook!=null">
+                <form name="bookFormAdd" novalidate class="form-inline" ng-submit="addBook(bookFormAdd)" ng-hide="editBook!=null">
 
-                        <input type="text" ng-model="book.BookName" placeholder="Book's Name" />
+                        <input name="inputBookAddName" type="text" ng-model="book.BookName" placeholder="Book's Name" ng-class="{'erroneous-field':bookFormAdd.inputBookAddName.$invalid && bookFormAdd.inputBookAddName.$dirty}"
+                                required />
                         <br><br>
-                        <input type="text" ng-model="book.AuthorName" placeholder="Author's Name" />
+                        <input name="inputBookAddAuthorName" type="text" ng-model="book.AuthorName" placeholder="Author's Name" required/>
                         <br><br>
-                        <input type="text" ng-model="book.ISBN" placeholder="ISBN" />
+                        <input name="inputBookAddISBN" type="text" ng-model="book.ISBN" placeholder="ISBN" required/>
                         <br><br>
-                        <input type="hidden" ng-model="book.DateReleased" placeholder="Date Released" value="1118323623006" />
+                        <input name="inputBookAddDateReleased" type="hidden" ng-model="book.DateReleased" placeholder="Date Released" value="1118323623006"
+                        />
                         <br><br>
                         <input type="submit" class="btn btn-success" placeholder="ISBN" value="Create" />
 
                 </form>
 
-                <form class="form-inline" ng-hide="editBook==null">
+                <form name="bookFormEdit" novalidate class="form-inline" ng-hide="editBook==null">
 
-                        <input type="hidden" ng-model="editBook.ID" placeholder="Book's Name" />
+                        <input type="hidden" ng-model="editBook.ID" />
                         <br><br>
-                        <input type="text" ng-model="editBook.BookName" placeholder="Book's Name" />
+                        <input name="inputBookEditName" type="text" ng-model="editBook.BookName" placeholder="Book's Name" ng-class="{'erroneous-field':bookFormEdit.inputBookEditName.$dirty && bookFormEdit.inputBookEditName.$invalid}"
+                                required />
                         <br><br>
-                        <input type="text" ng-model="editBook.AuthorName" placeholder="Author's Name" />
+                        <input name="inputBookEditAuthorName" type="text" ng-model="editBook.AuthorName" placeholder="Author's Name" required/>
                         <br><br>
-                        <input type="text" ng-model="editBook.ISBN" placeholder="ISBN" />
+                        <input name="inputBookEditISBN" type="text" ng-model="editBook.ISBN" placeholder="ISBN" required/>
                         <br><br>
-                        <input type="hidden" ng-model="editBook.DateReleased" placeholder="Date Released" value="1118323623006" />
+                        <input name="inputBookEditDateReleased" type="hidden" ng-model="editBook.DateReleased" placeholder="Date Released" value="1118323623006"
+                        />
                         <br><br>
-                        <input type="submit" class="btn btn-success" placeholder="ISBN" value="Update" ng-click="updateBook();" />                        
+                        <input type="submit" class="btn btn-success" placeholder="ISBN" value="Update" ng-click="updateBook(bookFormEdit);" />
                         <input type="button" class="btn btn-info" placeholder="ISBN" value="Cancel" ng-click="cancelEdit();" />
 
                 </form>
 
                 <br><br>
-                <p ng-hide="books.length > 0" ng-style='getStyle(1)' ng-class="{'alert alert-warning':books.length<=0}">No books availables.</p>
+                <p ng-hide="books.length > 0" ng-style='getStyle(1)' ng-class="{'alert alert-warning':books.length<=0}">
+                        No books availables.
+                </p>
 
                 <div ng-hide="books.length<=0">
 
@@ -100,8 +108,7 @@
                 </div>
         </div>
         <br><br>
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
         <script src="lib/jquery-3.1.1.min.js"></script>
         <script src="lib/popper.js"></script>
         <script src="lib/bootstrap.min.js"></script>
